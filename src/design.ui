@@ -36,7 +36,7 @@
      <string>Verilator GUI</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="inputField">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -44,6 +44,12 @@
       <width>511</width>
       <height>25</height>
      </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="placeholderText">
+     <string>Input file</string>
     </property>
    </widget>
    <widget class="QPushButton" name="inputButton">
@@ -59,7 +65,7 @@
      <string>Input</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
+   <widget class="QLineEdit" name="outputField">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -67,6 +73,12 @@
       <width>511</width>
       <height>25</height>
      </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="placeholderText">
+     <string>Output Directory</string>
     </property>
    </widget>
    <widget class="QPushButton" name="outputButton">
@@ -82,7 +94,7 @@
      <string>Output</string>
     </property>
    </widget>
-   <widget class="QSpinBox" name="spinBox">
+   <widget class="QSpinBox" name="coreCount">
     <property name="geometry">
      <rect>
       <x>500</x>
@@ -90,6 +102,12 @@
       <width>51</width>
       <height>26</height>
      </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>128</number>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -163,6 +181,15 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>inputButton</tabstop>
+  <tabstop>inputField</tabstop>
+  <tabstop>outputButton</tabstop>
+  <tabstop>outputField</tabstop>
+  <tabstop>coreCount</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>pushButton_2</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

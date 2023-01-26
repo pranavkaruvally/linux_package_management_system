@@ -9,9 +9,13 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import subprocess
 
 class Ui_MainWindow(object):
+    def __init__(self):
+        super().__init__()
+        self.cores = int(subprocess.getoutput("nproc"))
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
@@ -27,43 +31,50 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.label.setFont(font)
         self.label.setObjectName("label")
-        self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit.setGeometry(QtCore.QRect(40, 290, 511, 25))
-        self.lineEdit.setObjectName("lineEdit")
+        self.inputField = QtWidgets.QLineEdit(self.centralwidget)
+        self.inputField.setGeometry(QtCore.QRect(40, 290, 511, 25))
+        self.inputField.setReadOnly(True)
+        self.inputField.setObjectName("inputField")
         self.inputButton = QtWidgets.QPushButton(self.centralwidget)
         self.inputButton.setGeometry(QtCore.QRect(610, 290, 91, 25))
         self.inputButton.setObjectName("inputButton")
-        self.lineEdit_2 = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_2.setGeometry(QtCore.QRect(40, 340, 511, 25))
-        self.lineEdit_2.setObjectName("lineEdit_2")
+        self.outputField = QtWidgets.QLineEdit(self.centralwidget)
+        self.outputField.setGeometry(QtCore.QRect(40, 340, 511, 25))
+        self.outputField.setReadOnly(True)
+        self.outputField.setObjectName("outputField")
         self.outputButton = QtWidgets.QPushButton(self.centralwidget)
         self.outputButton.setGeometry(QtCore.QRect(610, 340, 91, 25))
         self.outputButton.setObjectName("outputButton")
-        self.spinBox = QtWidgets.QSpinBox(self.centralwidget)
-        self.spinBox.setGeometry(QtCore.QRect(500, 400, 51, 26))
-        self.spinBox.setObjectName("spinBox")
+        self.coreCount = QtWidgets.QSpinBox(self.centralwidget)
+        self.coreCount.setGeometry(QtCore.QRect(500, 400, 51, 26))
+        self.coreCount.setMinimum(1)
+        self.coreCount.setMaximum(self.cores)
+        self.coreCount.setValue(self.cores)
+        self.coreCount.setObjectName("coreCount")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(380, 400, 101, 21))
         self.label_2.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.label_2.setObjectName("label_2")
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(610, 500, 91, 41))
+        self.buildButton = QtWidgets.QPushButton(self.centralwidget)
+        self.buildButton.setGeometry(QtCore.QRect(610, 500, 91, 41))
+        self.buildButton.clicked.connect(lambda: self.build())
         font = QtGui.QFont()
         font.setFamily("Ubuntu")
         font.setPointSize(12)
         font.setBold(False)
         font.setItalic(True)
         font.setWeight(50)
-        self.pushButton.setFont(font)
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(460, 500, 91, 41))
+        self.buildButton.setFont(font)
+        self.buildButton.setObjectName("buildButton")
+        self.clearButton = QtWidgets.QPushButton(self.centralwidget)
+        self.clearButton.setGeometry(QtCore.QRect(460, 500, 91, 41))
         font = QtGui.QFont()
         font.setFamily("Ubuntu")
         font.setPointSize(12)
         font.setItalic(True)
-        self.pushButton_2.setFont(font)
-        self.pushButton_2.setObjectName("pushButton_2")
+        self.clearButton.setFont(font)
+        self.clearButton.setObjectName("clearButton")
+        self.clearButton.clicked.connect(lambda: self.clearAll())
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
@@ -75,16 +86,32 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        MainWindow.setTabOrder(self.inputButton, self.inputField)
+        MainWindow.setTabOrder(self.inputField, self.outputButton)
+        MainWindow.setTabOrder(self.outputButton, self.outputField)
+        MainWindow.setTabOrder(self.outputField, self.coreCount)
+        MainWindow.setTabOrder(self.coreCount, self.buildButton)
+        MainWindow.setTabOrder(self.buildButton, self.clearButton)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Verilator GUI"))
         self.label.setText(_translate("MainWindow", "Verilator GUI"))
+        self.inputField.setPlaceholderText(_translate("MainWindow", "Input file"))
         self.inputButton.setText(_translate("MainWindow", "Input"))
+        self.outputField.setPlaceholderText(_translate("MainWindow", "Output Directory"))
         self.outputButton.setText(_translate("MainWindow", "Output"))
         self.label_2.setText(_translate("MainWindow", "No. of cores"))
-        self.pushButton.setText(_translate("MainWindow", "Build"))
-        self.pushButton_2.setText(_translate("MainWindow", "Clear"))
+        self.buildButton.setText(_translate("MainWindow", "Build"))
+        self.clearButton.setText(_translate("MainWindow", "Clear"))
+
+    def clearAll(self):
+        self.inputField.setText("")
+        self.outputField.setText("")
+        self.coreCount.setValue(self.cores)
+
+    def build(self):
+        pass
 
 
 if __name__ == "__main__":
