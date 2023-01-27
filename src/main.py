@@ -91,9 +91,6 @@ class Ui_MainWindow(object):
         MainWindow.setTabOrder(self.coreCount, self.buildButton)
         MainWindow.setTabOrder(self.buildButton, self.clearButton)
 
-        self.buildButton.clicked.connect(lambda: self.build())
-        self.clearButton.clicked.connect(lambda: self.clearAll())
-
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Verilator GUI"))
@@ -105,6 +102,20 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "No. of cores"))
         self.buildButton.setText(_translate("MainWindow", "Build"))
         self.clearButton.setText(_translate("MainWindow", "Clear"))
+
+        self.buildButton.clicked.connect(lambda: self.build())
+        self.clearButton.clicked.connect(lambda: self.clearAll())
+        self.inputButton.clicked.connect(lambda: self.getInputFile())
+        self.outputButton.clicked.connect(lambda: self.setOutputDir())
+
+    def getInputFile(self):
+        fileTuple = QtWidgets.QFileDialog.getOpenFileName() # Returns a tuple with ('filename', 'Allfiles(*)')
+        filename = fileTuple[0]
+        self.inputField.setText(f"{filename}")
+
+    def setOutputDir(self):
+        dirName = QtWidgets.QFileDialog.getExistingDirectory()
+        self.outputField.setText(f"{dirName}")
 
     def clearAll(self):
         self.inputField.setText("")
