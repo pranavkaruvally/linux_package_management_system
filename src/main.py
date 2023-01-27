@@ -57,7 +57,6 @@ class Ui_MainWindow(object):
         self.label_2.setObjectName("label_2")
         self.buildButton = QtWidgets.QPushButton(self.centralwidget)
         self.buildButton.setGeometry(QtCore.QRect(610, 500, 91, 41))
-        self.buildButton.clicked.connect(lambda: self.build())
         font = QtGui.QFont()
         font.setFamily("Ubuntu")
         font.setPointSize(12)
@@ -74,7 +73,6 @@ class Ui_MainWindow(object):
         font.setItalic(True)
         self.clearButton.setFont(font)
         self.clearButton.setObjectName("clearButton")
-        self.clearButton.clicked.connect(lambda: self.clearAll())
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
@@ -92,6 +90,9 @@ class Ui_MainWindow(object):
         MainWindow.setTabOrder(self.outputField, self.coreCount)
         MainWindow.setTabOrder(self.coreCount, self.buildButton)
         MainWindow.setTabOrder(self.buildButton, self.clearButton)
+
+        self.buildButton.clicked.connect(lambda: self.build())
+        self.clearButton.clicked.connect(lambda: self.clearAll())
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
