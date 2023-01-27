@@ -126,7 +126,7 @@
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="buildButton">
     <property name="geometry">
      <rect>
       <x>610</x>
@@ -148,7 +148,7 @@
      <string>Build</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="clearButton">
     <property name="geometry">
      <rect>
       <x>460</x>
@@ -244,8 +244,8 @@
   <tabstop>inputWrapperButton</tabstop>
   <tabstop>outputButton</tabstop>
   <tabstop>coreCount</tabstop>
-  <tabstop>pushButton_2</tabstop>
-  <tabstop>pushButton</tabstop>
+  <tabstop>clearButton</tabstop>
+  <tabstop>buildButton</tabstop>
   <tabstop>inputVerilogField</tabstop>
   <tabstop>inputWrapperField</tabstop>
   <tabstop>outputField</tabstop>
