@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import subprocess
+import subprocess, os
 
 class Ui_MainWindow(object):
     def __init__(self):
@@ -124,11 +124,12 @@ class Ui_MainWindow(object):
 
     def build(self):
         inputFilename = self.inputField.text()
-        outputDirName = self.outputField.text()
+        outputDirName = self.outputField.text() + '/obj_dir'
+        simFilename = "/home/pranav/Documents/Python/verilator/sim_main.cpp"
         cores = self.coreCount.value()
-        command = f"verilator --cc --exe --build -j {cores} -Wall {outputDirName}/sim_main.cpp {inputFilename}"
+        command = f"verilator --cc --exe --build -j {cores} -Wall {simFilename} {inputFilename} --Mdir {outputDirName}"
 
-        subprocess.call(command)
+        os.system(command)
 
 
 if __name__ == "__main__":
