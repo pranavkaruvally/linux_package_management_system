@@ -9,13 +9,9 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import subprocess, os
+
 
 class Ui_MainWindow(object):
-    def __init__(self):
-        super().__init__()
-        self.cores = int(subprocess.getoutput("nproc"))
-
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
@@ -31,13 +27,13 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.label.setFont(font)
         self.label.setObjectName("label")
-        self.inputField = QtWidgets.QLineEdit(self.centralwidget)
-        self.inputField.setGeometry(QtCore.QRect(40, 290, 511, 25))
-        self.inputField.setReadOnly(True)
-        self.inputField.setObjectName("inputField")
-        self.inputButton = QtWidgets.QPushButton(self.centralwidget)
-        self.inputButton.setGeometry(QtCore.QRect(610, 290, 91, 25))
-        self.inputButton.setObjectName("inputButton")
+        self.inputWrapperField = QtWidgets.QLineEdit(self.centralwidget)
+        self.inputWrapperField.setGeometry(QtCore.QRect(40, 290, 511, 25))
+        self.inputWrapperField.setReadOnly(True)
+        self.inputWrapperField.setObjectName("inputWrapperField")
+        self.inputVerilogButton = QtWidgets.QPushButton(self.centralwidget)
+        self.inputVerilogButton.setGeometry(QtCore.QRect(610, 200, 91, 25))
+        self.inputVerilogButton.setObjectName("inputVerilogButton")
         self.outputField = QtWidgets.QLineEdit(self.centralwidget)
         self.outputField.setGeometry(QtCore.QRect(40, 340, 511, 25))
         self.outputField.setReadOnly(True)
@@ -48,31 +44,44 @@ class Ui_MainWindow(object):
         self.coreCount = QtWidgets.QSpinBox(self.centralwidget)
         self.coreCount.setGeometry(QtCore.QRect(500, 400, 51, 26))
         self.coreCount.setMinimum(1)
-        self.coreCount.setMaximum(self.cores)
-        self.coreCount.setValue(self.cores)
+        self.coreCount.setMaximum(128)
         self.coreCount.setObjectName("coreCount")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(380, 400, 101, 21))
         self.label_2.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.label_2.setObjectName("label_2")
-        self.buildButton = QtWidgets.QPushButton(self.centralwidget)
-        self.buildButton.setGeometry(QtCore.QRect(610, 500, 91, 41))
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(610, 500, 91, 41))
         font = QtGui.QFont()
         font.setFamily("Ubuntu")
         font.setPointSize(12)
         font.setBold(False)
         font.setItalic(True)
         font.setWeight(50)
-        self.buildButton.setFont(font)
-        self.buildButton.setObjectName("buildButton")
-        self.clearButton = QtWidgets.QPushButton(self.centralwidget)
-        self.clearButton.setGeometry(QtCore.QRect(460, 500, 91, 41))
+        self.pushButton.setFont(font)
+        self.pushButton.setObjectName("pushButton")
+        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_2.setGeometry(QtCore.QRect(460, 500, 91, 41))
         font = QtGui.QFont()
         font.setFamily("Ubuntu")
         font.setPointSize(12)
         font.setItalic(True)
-        self.clearButton.setFont(font)
-        self.clearButton.setObjectName("clearButton")
+        self.pushButton_2.setFont(font)
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.inputVerilogField = QtWidgets.QLineEdit(self.centralwidget)
+        self.inputVerilogField.setGeometry(QtCore.QRect(40, 200, 511, 25))
+        self.inputVerilogField.setReadOnly(True)
+        self.inputVerilogField.setObjectName("inputVerilogField")
+        self.inputWrapperButton = QtWidgets.QPushButton(self.centralwidget)
+        self.inputWrapperButton.setGeometry(QtCore.QRect(610, 290, 91, 25))
+        self.inputWrapperButton.setObjectName("inputWrapperButton")
+        self.cppRadioButton = QtWidgets.QRadioButton(self.centralwidget)
+        self.cppRadioButton.setGeometry(QtCore.QRect(500, 250, 51, 23))
+        self.cppRadioButton.setChecked(True)
+        self.cppRadioButton.setObjectName("cppRadioButton")
+        self.systemCRadioButton = QtWidgets.QRadioButton(self.centralwidget)
+        self.systemCRadioButton.setGeometry(QtCore.QRect(380, 250, 81, 23))
+        self.systemCRadioButton.setObjectName("systemCRadioButton")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
@@ -84,52 +93,30 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        MainWindow.setTabOrder(self.inputButton, self.inputField)
-        MainWindow.setTabOrder(self.inputField, self.outputButton)
-        MainWindow.setTabOrder(self.outputButton, self.outputField)
-        MainWindow.setTabOrder(self.outputField, self.coreCount)
-        MainWindow.setTabOrder(self.coreCount, self.buildButton)
-        MainWindow.setTabOrder(self.buildButton, self.clearButton)
+        MainWindow.setTabOrder(self.inputVerilogButton, self.inputWrapperButton)
+        MainWindow.setTabOrder(self.inputWrapperButton, self.outputButton)
+        MainWindow.setTabOrder(self.outputButton, self.coreCount)
+        MainWindow.setTabOrder(self.coreCount, self.pushButton_2)
+        MainWindow.setTabOrder(self.pushButton_2, self.pushButton)
+        MainWindow.setTabOrder(self.pushButton, self.inputVerilogField)
+        MainWindow.setTabOrder(self.inputVerilogField, self.inputWrapperField)
+        MainWindow.setTabOrder(self.inputWrapperField, self.outputField)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Verilator GUI"))
         self.label.setText(_translate("MainWindow", "Verilator GUI"))
-        self.inputField.setPlaceholderText(_translate("MainWindow", "Input file"))
-        self.inputButton.setText(_translate("MainWindow", "Input"))
+        self.inputWrapperField.setPlaceholderText(_translate("MainWindow", "Input C++ wrapper"))
+        self.inputVerilogButton.setText(_translate("MainWindow", "Input"))
         self.outputField.setPlaceholderText(_translate("MainWindow", "Output Directory"))
         self.outputButton.setText(_translate("MainWindow", "Output"))
         self.label_2.setText(_translate("MainWindow", "No. of cores"))
-        self.buildButton.setText(_translate("MainWindow", "Build"))
-        self.clearButton.setText(_translate("MainWindow", "Clear"))
-
-        self.buildButton.clicked.connect(lambda: self.build())
-        self.clearButton.clicked.connect(lambda: self.clearAll())
-        self.inputButton.clicked.connect(lambda: self.getInputFile())
-        self.outputButton.clicked.connect(lambda: self.setOutputDir())
-
-    def getInputFile(self):
-        fileTuple = QtWidgets.QFileDialog.getOpenFileName() # Returns a tuple with ('filename', 'Allfiles(*)')
-        filename = fileTuple[0]
-        self.inputField.setText(f"{filename}")
-
-    def setOutputDir(self):
-        dirName = QtWidgets.QFileDialog.getExistingDirectory()
-        self.outputField.setText(f"{dirName}")
-
-    def clearAll(self):
-        self.inputField.setText("")
-        self.outputField.setText("")
-        self.coreCount.setValue(self.cores)
-
-    def build(self):
-        inputFilename = self.inputField.text()
-        outputDirName = self.outputField.text() + '/obj_dir'
-        simFilename = "/home/pranav/Documents/Python/verilator/sim_main.cpp"
-        cores = self.coreCount.value()
-        command = f"verilator --cc --exe --build -j {cores} -Wall {simFilename} {inputFilename} --Mdir {outputDirName}"
-
-        os.system(command)
+        self.pushButton.setText(_translate("MainWindow", "Build"))
+        self.pushButton_2.setText(_translate("MainWindow", "Clear"))
+        self.inputVerilogField.setPlaceholderText(_translate("MainWindow", "Input Verilog file"))
+        self.inputWrapperButton.setText(_translate("MainWindow", "Input"))
+        self.cppRadioButton.setText(_translate("MainWindow", "C++"))
+        self.systemCRadioButton.setText(_translate("MainWindow", "SystemC"))
 
 
 if __name__ == "__main__":

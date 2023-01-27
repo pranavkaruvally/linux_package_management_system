@@ -36,7 +36,7 @@
      <string>Verilator GUI</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="inputField">
+   <widget class="QLineEdit" name="inputWrapperField">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -49,14 +49,14 @@
      <bool>true</bool>
     </property>
     <property name="placeholderText">
-     <string>Input file</string>
+     <string>Input C++ wrapper</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="inputButton">
+   <widget class="QPushButton" name="inputVerilogButton">
     <property name="geometry">
      <rect>
       <x>610</x>
-      <y>290</y>
+      <y>200</y>
       <width>91</width>
       <height>25</height>
      </rect>
@@ -168,6 +168,64 @@
      <string>Clear</string>
     </property>
    </widget>
+   <widget class="QLineEdit" name="inputVerilogField">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>200</y>
+      <width>511</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="placeholderText">
+     <string>Input Verilog file</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="inputWrapperButton">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>290</y>
+      <width>91</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Input</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="cppRadioButton">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>250</y>
+      <width>51</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>C++</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="systemCRadioButton">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>250</y>
+      <width>81</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>SystemC</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -182,13 +240,15 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <tabstops>
-  <tabstop>inputButton</tabstop>
-  <tabstop>inputField</tabstop>
+  <tabstop>inputVerilogButton</tabstop>
+  <tabstop>inputWrapperButton</tabstop>
   <tabstop>outputButton</tabstop>
-  <tabstop>outputField</tabstop>
   <tabstop>coreCount</tabstop>
-  <tabstop>pushButton</tabstop>
   <tabstop>pushButton_2</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>inputVerilogField</tabstop>
+  <tabstop>inputWrapperField</tabstop>
+  <tabstop>outputField</tabstop>
  </tabstops>
  <resources/>
  <connections/>
