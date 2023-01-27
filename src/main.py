@@ -123,7 +123,12 @@ class Ui_MainWindow(object):
         self.coreCount.setValue(self.cores)
 
     def build(self):
-        pass
+        inputFilename = self.inputField.text()
+        outputDirName = self.outputField.text()
+        cores = self.coreCount.value()
+        command = f"verilator --cc --exe --build -j {cores} -Wall {outputDirName}/sim_main.cpp {inputFilename}"
+
+        subprocess.call(command)
 
 
 if __name__ == "__main__":
