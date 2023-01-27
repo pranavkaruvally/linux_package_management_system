@@ -12,6 +12,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_MainWindow(object):
+    def __init__(self):
+        super().__init__()
+
+        self.wrapper = 'cpp'
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
@@ -106,7 +111,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Verilator GUI"))
         self.label.setText(_translate("MainWindow", "Verilator GUI"))
-        self.inputWrapperField.setPlaceholderText(_translate("MainWindow", "Input C++ wrapper"))
+        self.inputWrapperField.setPlaceholderText(_translate("MainWindow", "Input C++ Wrapper"))
         self.inputVerilogButton.setText(_translate("MainWindow", "Input"))
         self.outputField.setPlaceholderText(_translate("MainWindow", "Output Directory"))
         self.outputButton.setText(_translate("MainWindow", "Output"))
@@ -117,6 +122,17 @@ class Ui_MainWindow(object):
         self.inputWrapperButton.setText(_translate("MainWindow", "Input"))
         self.cppRadioButton.setText(_translate("MainWindow", "C++"))
         self.systemCRadioButton.setText(_translate("MainWindow", "SystemC"))
+
+        self.cppRadioButton.toggled.connect(lambda: self.cppRadioButtonClicked())
+        self.systemCRadioButton.toggled.connect(lambda: self.systemCRadioButtonClicked())
+
+    def cppRadioButtonClicked(self):
+        self.inputWrapperField.setPlaceholderText("Input C++ Wrapper")
+        self.wrapper = "cpp"
+
+    def systemCRadioButtonClicked(self):
+        self.inputWrapperField.setPlaceholderText("Input SystemC Wrapper")
+        self.wrapper = "systemc"
 
 
 if __name__ == "__main__":
