@@ -9,7 +9,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import subprocess, os
+from dialogue import Ui_Dialog
+import subprocess
 
 
 class Ui_MainWindow(object):
@@ -163,6 +164,12 @@ class Ui_MainWindow(object):
         self.coreCount.setValue(self.cores)
         self.cppRadioButton.setChecked(True)
 
+    def openDialogueBox(self, text):
+        self.window = QtWidgets.QDialog()
+        self.ui = Ui_Dialog(text)
+        self.ui.setupUi(self.window)
+        self.window.show()
+
     def build(self):
         inputFilename = self.inputVerilogField.text()
         outputDirName = self.outputField.text() + '/obj_dir'
@@ -171,7 +178,8 @@ class Ui_MainWindow(object):
         cores = self.coreCount.value()
         command = f"verilator --{wrapper} --exe --build -j {cores} -Wall {simFilename} {inputFilename} --Mdir {outputDirName}"
 
-        os.system(command)
+        commandExecOutput = subprocess.getoutput(command)
+        self.openDialogueBox(commandExecOutput)
 
 
 if __name__ == "__main__":
