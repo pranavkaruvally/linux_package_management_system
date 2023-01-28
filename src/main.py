@@ -144,13 +144,13 @@ class Ui_MainWindow(object):
         self.wrapper = "systemc"
 
     def getVerilogInputFile(self):
-        fileTuple = QtWidgets.QFileDialog.getOpenFileName(filter="Verilogfiles(*.v);;Allfiles(*)")
+        fileTuple = QtWidgets.QFileDialog.getOpenFileName(filter="Verilogfiles(*.v *.verilog *.vlg *.vh);;Allfiles(*)")
         # Returns a tuple with ('filename', 'Allfiles(*)')
         filename = fileTuple[0]
         self.inputVerilogField.setText(f"{filename}")
 
     def getWrapperInputFile(self):
-        fileTuple = QtWidgets.QFileDialog.getOpenFileName(filter="cppFiles(*.cpp);;Allfiles(*)")
+        fileTuple = QtWidgets.QFileDialog.getOpenFileName(filter="cppFiles(*.cpp *.cc *.C *.cxx *.c++);;Allfiles(*)")
         filename = fileTuple[0]
         self.inputWrapperField.setText(f"{filename}")
 
