@@ -12,12 +12,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from dialogue import Ui_Dialog
 import subprocess
 
-
 class Ui_MainWindow(object):
     def __init__(self):
         super().__init__()
 
-        self.wrapper = 'cpp'
+        self.wrapper = 'bin'
         self.cores = int(subprocess.getoutput("nproc"))
 
     def setupUi(self, MainWindow):
@@ -36,8 +35,10 @@ class Ui_MainWindow(object):
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.inputWrapperField = QtWidgets.QLineEdit(self.centralwidget)
+        self.inputWrapperField.setEnabled(False)
         self.inputWrapperField.setGeometry(QtCore.QRect(40, 290, 511, 25))
         self.inputWrapperField.setReadOnly(True)
+        self.inputWrapperField.setPlaceholderText("")
         self.inputWrapperField.setObjectName("inputWrapperField")
         self.inputVerilogButton = QtWidgets.QPushButton(self.centralwidget)
         self.inputVerilogButton.setGeometry(QtCore.QRect(610, 200, 91, 25))
@@ -82,15 +83,21 @@ class Ui_MainWindow(object):
         self.inputVerilogField.setReadOnly(True)
         self.inputVerilogField.setObjectName("inputVerilogField")
         self.inputWrapperButton = QtWidgets.QPushButton(self.centralwidget)
+        self.inputWrapperButton.setEnabled(False)
         self.inputWrapperButton.setGeometry(QtCore.QRect(610, 290, 91, 25))
         self.inputWrapperButton.setObjectName("inputWrapperButton")
         self.cppRadioButton = QtWidgets.QRadioButton(self.centralwidget)
-        self.cppRadioButton.setGeometry(QtCore.QRect(500, 250, 51, 23))
-        self.cppRadioButton.setChecked(True)
+        self.cppRadioButton.setEnabled(True)
+        self.cppRadioButton.setGeometry(QtCore.QRect(410, 250, 51, 23))
+        self.cppRadioButton.setChecked(False)
         self.cppRadioButton.setObjectName("cppRadioButton")
         self.systemCRadioButton = QtWidgets.QRadioButton(self.centralwidget)
-        self.systemCRadioButton.setGeometry(QtCore.QRect(380, 250, 81, 23))
+        self.systemCRadioButton.setGeometry(QtCore.QRect(300, 250, 81, 23))
         self.systemCRadioButton.setObjectName("systemCRadioButton")
+        self.binaryRadioButton = QtWidgets.QRadioButton(self.centralwidget)
+        self.binaryRadioButton.setGeometry(QtCore.QRect(480, 250, 71, 23))
+        self.binaryRadioButton.setChecked(True)
+        self.binaryRadioButton.setObjectName("radioButton")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
@@ -115,7 +122,6 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Verilator GUI"))
         self.label.setText(_translate("MainWindow", "Verilator GUI"))
-        self.inputWrapperField.setPlaceholderText(_translate("MainWindow", "Input C++ Wrapper"))
         self.inputVerilogButton.setText(_translate("MainWindow", "Input"))
         self.outputField.setPlaceholderText(_translate("MainWindow", "Output Directory"))
         self.outputButton.setText(_translate("MainWindow", "Output"))
@@ -126,21 +132,33 @@ class Ui_MainWindow(object):
         self.inputWrapperButton.setText(_translate("MainWindow", "Input"))
         self.cppRadioButton.setText(_translate("MainWindow", "C++"))
         self.systemCRadioButton.setText(_translate("MainWindow", "SystemC"))
+        self.binaryRadioButton.setText(_translate("MainWindow", "Binary"))
 
         self.cppRadioButton.toggled.connect(lambda: self.cppRadioButtonClicked())
         self.systemCRadioButton.toggled.connect(lambda: self.systemCRadioButtonClicked())
+        self.binaryRadioButton.toggled.connect(lambda: self.binaryRadioButtonClicked())
         self.buildButton.clicked.connect(lambda: self.build())
         self.clearButton.clicked.connect(lambda: self.clearAll())
         self.inputVerilogButton.clicked.connect(lambda: self.getVerilogInputFile())
         self.inputWrapperButton.clicked.connect(lambda: self.getWrapperInputFile())
         self.outputButton.clicked.connect(lambda: self.setOutputDir())
 
+    def binaryRadioButtonClicked(self):
+        self.inputWrapperField.setPlaceholderText("")
+        self.inputWrapperField.setEnabled(False)
+        self.inputWrapperButton.setEnabled(False)
+        self.wrapper = "bin"
+
     def cppRadioButtonClicked(self):
         self.inputWrapperField.setPlaceholderText("Input C++ Wrapper")
+        self.inputWrapperField.setEnabled(True)
+        self.inputWrapperButton.setEnabled(True)
         self.wrapper = "cpp"
 
     def systemCRadioButtonClicked(self):
         self.inputWrapperField.setPlaceholderText("Input SystemC Wrapper")
+        self.inputWrapperField.setEnabled(True)
+        self.inputWrapperButton.setEnabled(True)
         self.wrapper = "systemc"
 
     def getVerilogInputFile(self):
@@ -174,10 +192,16 @@ class Ui_MainWindow(object):
     def build(self):
         inputFilename = self.inputVerilogField.text()
         outputDirName = self.outputField.text() + '/obj_dir'
-        simFilename = self.inputWrapperField.text()
-        wrapper = "cc" if self.wrapper == "cpp" else "sc"
         cores = self.coreCount.value()
-        command = f"verilator --{wrapper} --exe --build -j {cores} -Wall {simFilename} {inputFilename} --Mdir {outputDirName}"
+        simFilename = self.inputWrapperField.text()
+        #wrapper = "cc" if self.wrapper == "cpp" else "sc"
+
+        if self.wrapper == "bin":
+            wrapper = "binary"
+            command = f"verilator --{wrapper} -j {cores} -Wall {inputFilename} --Mdir {outputDirName}"
+        else:
+            wrapper = "cc" if self.wrapper == "cpp" else "sc"
+            command = f"verilator --{wrapper} --exe --build -j {cores} -Wall {simFilename} {inputFilename} --Mdir {outputDirName}"
 
         commandExecOutput = subprocess.getoutput(command)
         self.openDialogueBox(commandExecOutput)
