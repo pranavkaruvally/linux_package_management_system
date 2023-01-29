@@ -30,3 +30,8 @@ One could now simply open up the program by
 ```
 ./main
 ```
+## Dependencies
+
+The software Verilator does comes packaged inside this program and is installed when running the `installer.sh`.  
+The stable version inside the Verilator GitHub repo was compiled along with a `GLIBC 2.31` so that it would support a wide variety of distros especially the Debian based ones that still hasn't moved on to the later versions such as `GLIBC 2.35` or `GLIBC 2.34`.
+Additional dependency warnings if any will be displayed in the dialogue box that opens up once the `Build` button is pressed inside the program.
