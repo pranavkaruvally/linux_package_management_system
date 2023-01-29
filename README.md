@@ -46,6 +46,8 @@ cd ~/verilator_gui/dist
 
 Now, the GUI build using PyQt5 will open up.  
   
+![Screenshot from 2023-01-29 16-12-54](https://user-images.githubusercontent.com/49746983/215321632-77fff584-7db6-4ea1-89dd-3a305a8afe06.png)  
+  
 In the program there will be 3 text fields associated with each, a button as well.  
 Along with the first field is a button with `Input` written inside it.  
 Clicking that button will open a dialogue box that helps to pick a verilog file.  
