@@ -4,7 +4,7 @@ GUI for Verilator
 
 ## Installation  
 Download the `installer.sh` file.  
-You can do this either by cloning the repo or directly <a href="https://drive.google.com/file/d/1HVtLxvJNPOGXQtFQGIPhE6OVPPJTsd62/view?usp=share_link">downloading</a> it from Google Drive.
+You can do this either by cloning the repo or directly <a href="https://drive.google.com/file/d/1AkqBEJUibjA4ZIwpWgtK0qmLdnGohpCo/view?usp=share_link">downloading</a> it from Google Drive.
 
 <hr>
 
@@ -46,13 +46,14 @@ cd ~/verilator_gui/dist
 
 Now, the GUI build using PyQt5 will open up.  
   
-![Screenshot from 2023-01-29 16-12-54](https://user-images.githubusercontent.com/49746983/215321632-77fff584-7db6-4ea1-89dd-3a305a8afe06.png)  
+![Screenshot from 2023-01-29 17-01-52](https://user-images.githubusercontent.com/49746983/215323242-da1021d4-2600-46c3-a084-2927f586cdbd.png)
+
   
 In the program there will be 3 text fields associated with each, a button as well.  
 Along with the first field is a button with `Input` written inside it.  
 Clicking that button will open a dialogue box that helps to pick a verilog file.  
 Along with the second field is a button with `Input` written inside it.  
-Clicking that button will open a dialogue box that helps to pick a wrapper file.  
+Clicking that button will open a dialogue box that helps to pick a wrapper file.(For binary mode the button will be disabled)  
 Along with the first field is a button with `Output` written inside it.  
 Clicking that button will open a dialogue box that helps to pick a directory to where the compiled simulation is to be saved.
 
