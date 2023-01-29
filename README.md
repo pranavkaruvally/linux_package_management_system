@@ -1,6 +1,6 @@
 # Linux Package Management System
 
-GUI for Verilator is a GUI interface along with installer for verilator.  
+This program is a GUI interface along with installer for verilator.  
 This program installs the stable version of verilator and also provides a GUI powered by PyQt5.
 
 ## Installation  
