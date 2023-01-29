@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# My files
+src/bin
+src/include
+src/program.tar.xz
+/installer.sh
