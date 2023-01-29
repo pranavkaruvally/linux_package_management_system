@@ -132,4 +132,3 @@ dmypy.json
 src/bin
 src/include
 src/program.tar.xz
-/installer.sh
