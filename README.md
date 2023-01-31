@@ -22,6 +22,10 @@ chmod +x installer.sh
 ./installer.sh
 ```
 This will now install the program in a folder named `verilator_gui` inside your `home` directory.  
+For the installation changes to take place, either start a new terminal window or run  
+```
+source ~/.bashrc
+```  
 The program is accessible from the `dist` directory inside the `verilator_gui` directory  
 ```
 cd ~/verilator_gui/dist
